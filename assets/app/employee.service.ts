@@ -13,7 +13,7 @@ export class EmployeeService {
     ) {  }
 
   public getEmployees(){
-    return this.http.get('http://localhost:3000/api/tasks')
+    return this.http.get('http://localhost:3000/api/employees')
                   .map((response:Response) => {
                     return response.json().obj
                     })
@@ -23,7 +23,7 @@ export class EmployeeService {
   public addEmployee(employee: Employee){
     const body = JSON.stringify(employee);
     const headers = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://localhost:3000/api/task',body, {headers: headers})
+    return this.http.post('http://localhost:3000/api/employee',body, {headers: headers})
                   .map((response:Response) => {
                     return response.json().obj
                     })
@@ -33,7 +33,7 @@ export class EmployeeService {
   public modifyEmployee(employee: Employee){
     const body = JSON.stringify(employee);
     const headers = new Headers({'Content-Type' : 'application/json'});
-    return this.http.put('http://localhost:3000/api/task/'+employee._id,body, {headers: headers})
+    return this.http.put('http://localhost:3000/api/employee/'+employee._id,body, {headers: headers})
                   .map((response:Response) => {
                     return response.json().obj
                     })
@@ -41,7 +41,7 @@ export class EmployeeService {
   }
 
   public getEmployee(id: string){
-    return this.http.get('http://localhost:3000/api/task/'+id)
+    return this.http.get('http://localhost:3000/api/employee/'+id)
                   .map((response:Response) => {
                     return response.json().obj
                     })
@@ -49,7 +49,7 @@ export class EmployeeService {
   }
 
   public deleteEmployee(id: string){
-    return this.http.delete('http://localhost:3000/api/task/'+id)
+    return this.http.delete('http://localhost:3000/api/employee/'+id)
                   .map((response:Response) => {
                     return response.json().obj
                     })
