@@ -1,0 +1,94 @@
+<div class = "container">
+
+	<div class = "row"> 
+		<br><br>
+		<input type="button" class = "btn btn-primary" value = " + Add Employee" (click)="getAddEmployeeForm()">
+	</div> 
+
+	<div class = "col-sm-12">
+		<div class = "row">
+		<h3> List of Employees </h3>
+		</div>
+		<br>
+		<table class = "table-striped">
+			<thead>
+			<tr class="row">
+				<th class = "col-sm-3">
+					First Name
+				</th>
+				<th class = "col-sm-3">
+					Last Name
+				</th>
+				<th class = "col-sm-2">
+					Salary
+				</th>
+				<th class = "col-sm-4">
+					Options
+				</th>
+			</tr>				
+			</thead>
+			<tbody>
+				<tr *ngFor="let employee of employees; let i=index;"  class="row">
+					<td class = "col-sm-3">
+						{{employee.firstName}}
+					</td>
+					<td class = "col-sm-3">
+						{{employee.lastName}}
+					</td>
+					<td class = "col-sm-2">
+						{{employee.salary}}
+					</td>
+					<td class = "col-sm-4">
+						<button (click)="deleteEmployee(employee._id,i)"
+			                class="btn btn-danger">
+					          Delete
+					    </button>
+					    <button (click)="getEmployee(employee._id,i)"
+					                class="btn btn-warning">
+					          Modify
+					    </button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal" *ngIf="displayModal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <a (click) = "cancelOperation()"> <span class="close">&times;</span></a>
+    <div class = "container">
+    	<div class = "col-md-6">
+			<div class = "row">
+				<h3 *ngIf="showModifyButton==false"> Add Employee </h3>
+				<h3 *ngIf="showModifyButton"> Modify Employee </h3>
+			</div>
+			<br>
+			<form [formGroup]="rForm" >
+				<div class="form-group">
+					<label for="firstName">First Name</label>
+				    <input type="text" class="form-control" name="firstName" formControlName="firstName" [(ngModel)]="employee.firstName">
+				    <div class="alert" *ngIf="!rForm.controls['firstName'].valid && rForm.controls['firstName'].touched">{{ titleAlert }}</div>
+				</div>
+				<div class="form-group">
+				    <label for="lastName">Last Name</label>
+				    <input type="text" class="form-control" name="lastName" formControlName="lastName" [(ngModel)]="employee.lastName">
+				    <div class="alert" *ngIf="!rForm.controls['lastName'].valid && rForm.controls['lastName'].touched">{{ titleAlert }}</div>
+				</div>
+				<div class="form-group">
+				    <label for="salary">Salary</label>
+				    <input type="text" class="form-control" name="salary" formControlName="salary" [(ngModel)]="employee.salary">
+				    <div class="alert" *ngIf="!rForm.controls['salary'].valid && rForm.controls['salary'].touched">{{ titleAlert }}</div>
+				</div>
+		      <input type="button" class = "btn btn-primary" value = "Add" *ngIf="showModifyButton==false" [disabled]="!rForm.valid" (click)="addEmployee()">
+		      <input type="button" class = "btn btn-success" value = "Modify" *ngIf="showModifyButton" [disabled]="!rForm.valid" (click)="modifyEmployee()">
+		      <button (click)="cancelOperation()"  class="btn btn-warning"> Cancel </button>
+		    </form>
+		</div>
+  	</div>
+   </div>
+
+</div>
