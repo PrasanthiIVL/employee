@@ -50,6 +50,7 @@ export class EmployeeComponent implements OnInit {
 
   resetEmployee(){
     this.employee = {
+      _id:"",
       firstName: "",
       lastName : "",
       salary : 0
@@ -107,8 +108,8 @@ export class EmployeeComponent implements OnInit {
     this.emp = this.employee;
     this.employeeService.modifyEmployee(this.employee)
         .subscribe(
-          data => {
-             console.log("Employee modified");
+          (employee: Employee) => {
+             console.log("Employee modified :"+ employee.firstName+" "+employee.lastName);
              this.employees[this.index] = this.emp;
            },
            error => console.error(error)

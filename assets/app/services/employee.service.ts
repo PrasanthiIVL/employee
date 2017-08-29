@@ -56,16 +56,4 @@ export class EmployeeService {
                   .catch((error:Response) => Observable.throw(error.json()));
   }
 
-  /*public deleteEmployee(i: number):void{
-    this.employees.splice(i,1);
-  }
-
-  public getEmployee(i:number): Employee{
-    return this.employees[i];
-  }
-
-  public modifyEmployee(employee:Employee, i:number){
-    this.employees[i] = employee;
-  }*/
-
 }
