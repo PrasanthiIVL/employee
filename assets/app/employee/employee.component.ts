@@ -1,8 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
+import { AppState } from '../app.states';
 import { Employee } from '../models/employee';
 import { EmployeeService } from '../services/employee.service';
+import { EmployeeAction } from '../actions/employee.action';
 
 @Component({
   selector: 'app-employee',
@@ -25,7 +29,8 @@ export class EmployeeComponent implements OnInit {
 
   constructor(
   	  private employeeService: EmployeeService,
-      private fb: FormBuilder
+      private fb: FormBuilder,
+      private store: Store<AppState>,
   	) {  }
 
   ngOnInit() {
@@ -33,6 +38,7 @@ export class EmployeeComponent implements OnInit {
       .subscribe(
         (employees: Employee[]) => {
           this.employees = employees;
+          this.store.dispatch(new EmployeeAction('MODIFYCOUNT',{count:this.employees.length}));
           },
           error => console.error(error)
       );   
@@ -77,11 +83,13 @@ export class EmployeeComponent implements OnInit {
   }
 
   addEmployee(): void {
+    this.employee._id = null;
 	  this.employeeService.addEmployee(this.employee)
         .subscribe(
            (employee: Employee) => {
              console.log("Employee is added: "+ employee.firstName+" "+employee.lastName);
              this.employees.push(employee);
+             this.store.dispatch(new EmployeeAction('MODIFYCOUNT',{count:this.employees.length}));
              },
            error => console.error(error)
           );
@@ -127,6 +135,7 @@ export class EmployeeComponent implements OnInit {
             data => {
              console.log("Employee deleted");
              this.employees.splice(i,1);
+             this.store.dispatch(new EmployeeAction('MODIFYCOUNT',{count:this.employees.length}));
             },
             error => console.error(error)
           );
