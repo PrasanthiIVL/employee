@@ -10,8 +10,6 @@ const defaultState: number = 0;
 
 export function empCountReducer(state: number = defaultState, action:EmployeeAction){
 
-	console.log(action.type,state);
-
 	switch (action.type) {
 		case 'MODIFYCOUNT':
 			return state = action.payload.count;

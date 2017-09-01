@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employee/employee.component';
@@ -35,7 +36,10 @@ import { empCountReducer } from './reducers/emp.count.reducer';
       ]),
     StoreModule.forRoot({
         empCount: empCountReducer
-      })
+      }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 10
+    })
   ],
   providers: [
     EmployeeService
