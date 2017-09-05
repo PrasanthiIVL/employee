@@ -16,8 +16,10 @@ export default function(state = initialState, action: Action): EmployeeListState
 			console.log(action.payload);
 			return action.payload;
 
-		case EmployeeActions.GET_EMPLOYEES_FAIL:
-			return { ...state, ...action.payload };
+		case EmployeeActions.GET_EMPLOYEES_FAIL:{
+			console.log(action.payload);
+			return state;
+		}
 
 		default: return state;
 	}	

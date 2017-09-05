@@ -24,6 +24,8 @@ export class EmployeeEffects{
 		.switchMap(() => { return this.employeeService.getEmployees() })
 		.switchMap(res => {
 			return Observable.of({type: EmployeeActions.GET_EMPLOYEES_SUCCESS, payload: res });
+		})
+		.catch(err => {
+			return Observable.of({type: EmployeeActions.GET_EMPLOYEES_FAIL, payload: err });
 		});
-
 }
