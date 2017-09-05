@@ -90,7 +90,7 @@ export class EmployeeComponent implements OnInit {
 
   addEmployee(): void {
     this.employee._id = null;
-	  this.employeeService.addEmployee(this.employee)
+	  /*this.employeeService.addEmployee(this.employee)
         .subscribe(
            (employee: Employee) => {
              console.log(employee);
@@ -99,8 +99,8 @@ export class EmployeeComponent implements OnInit {
              // this.store.dispatch(new EmpCountAction('MODIFYCOUNT',{count:this.employees.length}));
              },
            error => console.error(error)
-          );
-    // this.employeeStore.dispatch(new EmployeeActions.AddEmployee(this.employee));
+          );*/
+    this.employeeStore.dispatch(new EmployeeActions.AddEmployee(this.employee));
     this.resetEmployee();
     this.resetForm();
     this.hideModal();

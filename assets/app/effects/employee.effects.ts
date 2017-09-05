@@ -35,9 +35,9 @@ export class EmployeeEffects{
 						.ofType(EmployeeActions.ADD_EMPLOYEE)
 						.switchMap((action) => {return this.employeeService.addEmployee(action.payload)}) 
 						.switchMap( (employee:Employee) => {
-							return Observable.of({type:EmployeeActions.ADD_EMPLOYEE_SUCCESS, payload: employee })
+							return Observable.of({type: EmployeeActions.ADD_EMPLOYEE_SUCCESS, payload: employee})
 						})
-						/*.catch( err => {
+						.catch( err => {
 							return Observable.of({type: EmployeeActions.ADD_EMPLOYEE_FAIL, payload: err})
-						})*/
+						})
 }
