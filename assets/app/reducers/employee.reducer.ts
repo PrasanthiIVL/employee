@@ -7,6 +7,7 @@ const initialState: EmployeeListState = [];
 
 export default function(state = initialState, action: Action): EmployeeListState  {
 	console.log(action.type);
+	
 	switch(action.type) {
 		case EmployeeActions.GET_EMPLOYEES :
 			return state;

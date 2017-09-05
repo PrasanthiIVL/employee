@@ -3,12 +3,8 @@ import { EmpCountAction } from '../actions/emp.count.action';
 
 const defaultState: number = 0;
 
-/*class ModifyCount implements Action{
-	readonly type = 'MODIFYCOUNT';
-	constructor (public newCount:number){};
-}*/
-
-export function empCountReducer(state: number = defaultState, action:EmpCountAction){
+export default function (state: number = defaultState, action:EmpCountAction): number{
+	console.log(action.type);
 
 	switch (action.type) {
 		case 'MODIFYCOUNT':

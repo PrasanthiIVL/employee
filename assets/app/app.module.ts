@@ -12,9 +12,11 @@ import { EmployeeComponent } from './employee/employee.component';
 import { HomeComponent } from './home/home.component';
 
 import { EmployeeService } from './services/employee.service';
-import { empCountReducer } from './reducers/emp.count.reducer';
+// import empCountReducer from './reducers/emp.count.reducer';
 import { EmployeeEffects } from './effects/employee.effects';
 import employeeReducer  from './app.states';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,10 +38,8 @@ import employeeReducer  from './app.states';
           component: EmployeeComponent
         }
       ]),
-      StoreModule.provideStore({
-        empCount: empCountReducer,
-      }),
       StoreModule.provideStore(employeeReducer),
+
     /*StoreDevtoolsModule.instrument({
       maxAge: 10
     }),*/
