@@ -42,14 +42,14 @@ export class EmployeeComponent implements OnInit {
       .subscribe(
         (employees: Employee[]) => {
           this.employees = employees;
-          this.store.dispatch(new EmpCountAction('MODIFYCOUNT',{count:this.employees.length}));
+          //this.store.dispatch(new EmpCountAction('MODIFYCOUNT',{count:this.employees.length}));
           },
           error => console.error(error)
       );   
     this.resetEmployee();
     this.resetForm();
     this.employee$ = this.employeeStore.select('employees');
-    this.employeeStore.dispatch(new EmployeeActions.GetEmployees());
+    //this.employeeStore.dispatch(new EmployeeActions.GetEmployees());
   }
 
   resetForm(){

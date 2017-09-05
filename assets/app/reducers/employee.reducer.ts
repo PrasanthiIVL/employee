@@ -3,10 +3,10 @@ import { Employee } from '../models/employee';
 
 export type Action = EmployeeActions.All;
 export type EmployeeListState = Employee[];
-const initialState: EmployeeListState = [];
+const initialState: EmployeeListState = null;
 
 export default function(state = initialState, action: Action): EmployeeListState  {
-	console.log(action.type);
+	console.log(action.type + " " + state);
 	
 	switch(action.type) {
 		case EmployeeActions.GET_EMPLOYEES :
