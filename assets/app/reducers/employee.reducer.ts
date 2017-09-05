@@ -1,12 +1,13 @@
 import * as EmployeeActions from '../actions/employee.actions';
 import { Employee } from '../models/employee';
+import { Action } from '@ngrx/store';
 
-export type Action = EmployeeActions.All;
+// export type Action = EmployeeActions.All;
 export type EmployeeListState = Employee[];
 const initialState: EmployeeListState = null;
 
 export default function(state = initialState, action: Action): EmployeeListState  {
-	console.log(action.type + " " + state);
+	console.log(action.type);
 	
 	switch(action.type) {
 		case EmployeeActions.GET_EMPLOYEES :
@@ -20,6 +21,20 @@ export default function(state = initialState, action: Action): EmployeeListState
 			console.log(action.payload);
 			return state;
 		}
+
+		case EmployeeActions.ADD_EMPLOYEE:
+			//console.log(action.payload);
+			return state;
+		
+
+		case EmployeeActions.ADD_EMPLOYEE_SUCCESS:
+			console.log(action.payload);
+			// let newState:EmployeeListState = state.concat(action.payload);
+			return state.concat(action.payload);
+
+		case EmployeeActions.ADD_EMPLOYEE_FAIL:
+			console.log(action.payload);
+			return state;
 
 		default: return state;
 	}	
