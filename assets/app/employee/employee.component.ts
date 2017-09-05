@@ -6,8 +6,9 @@ import { Observable } from 'rxjs/Observable';
 import { AppState } from '../app.states';
 import { Employee } from '../models/employee';
 import { EmployeeService } from '../services/employee.service';
-import { EmployeeAction } from '../actions/employee.action';
-
+import { EmpCountAction } from '../actions/emp.count.action';
+import { EmployeeAppState } from '../app.states';
+import * as EmployeeActions from '../actions/employee.actions';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -17,6 +18,8 @@ export class EmployeeComponent implements OnInit {
   
   employees : Employee[];
   employee: Employee;
+
+  employee$: Observable<Employee[]>;
 
   index: number = -1;
   emp:Employee;
@@ -31,6 +34,7 @@ export class EmployeeComponent implements OnInit {
   	  private employeeService: EmployeeService,
       private fb: FormBuilder,
       private store: Store<AppState>,
+      private employeeStore: Store<EmployeeAppState>
   	) {  }
 
   ngOnInit() {
@@ -38,12 +42,14 @@ export class EmployeeComponent implements OnInit {
       .subscribe(
         (employees: Employee[]) => {
           this.employees = employees;
-          this.store.dispatch(new EmployeeAction('MODIFYCOUNT',{count:this.employees.length}));
+          this.store.dispatch(new EmpCountAction('MODIFYCOUNT',{count:this.employees.length}));
           },
           error => console.error(error)
       );   
     this.resetEmployee();
     this.resetForm();
+    this.employee$ = this.employeeStore.select('employees');
+    this.employeeStore.dispatch(new EmployeeActions.GetEmployees());
   }
 
   resetForm(){
@@ -89,7 +95,7 @@ export class EmployeeComponent implements OnInit {
            (employee: Employee) => {
              console.log("Employee is added: "+ employee.firstName+" "+employee.lastName);
              this.employees.push(employee);
-             this.store.dispatch(new EmployeeAction('MODIFYCOUNT',{count:this.employees.length}));
+             this.store.dispatch(new EmpCountAction('MODIFYCOUNT',{count:this.employees.length}));
              },
            error => console.error(error)
           );
@@ -135,9 +141,14 @@ export class EmployeeComponent implements OnInit {
             data => {
              console.log("Employee deleted");
              this.employees.splice(i,1);
-             this.store.dispatch(new EmployeeAction('MODIFYCOUNT',{count:this.employees.length}));
+             this.store.dispatch(new EmpCountAction('MODIFYCOUNT',{count:this.employees.length}));
             },
             error => console.error(error)
           );
   }
+
+  showEmployee$(){
+    console.log(this.employee$);
+  }
 }
+

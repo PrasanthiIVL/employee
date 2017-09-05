@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { EmployeeAction } from '../actions/employee.action';
+import { EmpCountAction } from '../actions/emp.count.action';
 
 const defaultState: number = 0;
 

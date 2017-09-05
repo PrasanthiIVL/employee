@@ -4,7 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+//import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employee/employee.component';
@@ -12,7 +13,8 @@ import { HomeComponent } from './home/home.component';
 
 import { EmployeeService } from './services/employee.service';
 import { empCountReducer } from './reducers/emp.count.reducer';
-
+import { EmployeeEffects } from './effects/employee.effects';
+import { employeeReducer } from './reducers/employee.reducer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,12 +36,14 @@ import { empCountReducer } from './reducers/emp.count.reducer';
           component: EmployeeComponent
         }
       ]),
-    StoreModule.forRoot({
-        empCount: empCountReducer
+    StoreModule.provideStore({
+        empCount: empCountReducer,
+        employee$: employeeReducer
       }),
-    StoreDevtoolsModule.instrument({
+    /*StoreDevtoolsModule.instrument({
       maxAge: 10
-    })
+    }),*/
+    EffectsModule.run(EmployeeEffects)
   ],
   providers: [
     EmployeeService
