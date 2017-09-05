@@ -19,16 +19,11 @@ export class EmployeeEffects{
 		private employeeService: EmployeeService 
 		){}
 
-
-	@Effect()
-	getEmployees: Observable<Action> = this.actions.ofType(EmployeeActions.GET_EMPLOYEES)
-											.map((action:EmployeeActions.GetEmployees) => this.employeeService.getEmployees)
-											.map(
-												employees => {
-													return new EmployeeActions.GetEmployeesSuccess(employees);
-												})
-											.catch(err => {
-												return new EmployeeActions.GetEmployeesFail({error: err.message})
-											})
+	@Effect() update$ = this.actions
+		.ofType(EmployeeActions.GET_EMPLOYEES)
+		.switchMap(() => { return this.employeeService.getEmployees() })
+		.switchMap(res => {
+			return Observable.of({type: EmployeeActions.GET_EMPLOYEES_SUCCESS, payload: res });
+		});
 
 }

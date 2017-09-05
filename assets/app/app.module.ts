@@ -14,7 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { EmployeeService } from './services/employee.service';
 import { empCountReducer } from './reducers/emp.count.reducer';
 import { EmployeeEffects } from './effects/employee.effects';
-import { employeeReducer } from './reducers/employee.reducer';
+import employeeReducer  from './app.states';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,10 +36,10 @@ import { employeeReducer } from './reducers/employee.reducer';
           component: EmployeeComponent
         }
       ]),
-    StoreModule.provideStore({
+      StoreModule.provideStore({
         empCount: empCountReducer,
-        employee$: employeeReducer
       }),
+      StoreModule.provideStore(employeeReducer),
     /*StoreDevtoolsModule.instrument({
       maxAge: 10
     }),*/

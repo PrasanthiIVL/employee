@@ -8,7 +8,7 @@ const defaultState: number = 0;
 	constructor (public newCount:number){};
 }*/
 
-export function empCountReducer(state: number = defaultState, action:EmployeeAction){
+export function empCountReducer(state: number = defaultState, action:EmpCountAction){
 
 	switch (action.type) {
 		case 'MODIFYCOUNT':
