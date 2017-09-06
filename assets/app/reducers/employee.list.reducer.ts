@@ -53,7 +53,6 @@ export default function(state = initialState, action: Action): EmployeeListState
 			return state;
 
 		default: 
-			console.log(action.type);
 			return state;
 	}	
 }

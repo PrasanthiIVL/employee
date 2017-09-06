@@ -17,14 +17,12 @@ export class AppComponent implements OnInit{
 	employees: Observable<Employee[]>;
 
 	constructor(
-			//private store: Store<AppState>,
       		private employeeStore: Store<EmployeeAppState>
 		){}
 
 	ngOnInit(){
 		this.employeeStore.dispatch(new EmployeeListActions.GetEmployees());
 		this.employees = this.employeeStore.select('employees');
-		//this.store.dispatch(new EmpCountAction('MODIFYCOUNT',{count:4}));
 	}
 
 }
