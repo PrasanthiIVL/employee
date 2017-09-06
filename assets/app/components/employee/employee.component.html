@@ -84,7 +84,9 @@
 				<div class="form-group">
 				    <label for="salary">Salary</label>
 				    <input type="text" class="form-control" name="salary" formControlName="salary" [(ngModel)]="emp.salary">
-				    <div class="alert" *ngIf="!rForm.controls['salary'].valid && rForm.controls['salary'].touched">{{ titleAlert }}</div>
+				    <div class="alert" *ngIf="!rForm.controls['salary'].valid && rForm.controls['salary'].touched">{{ titleAlert }}</div>	    
+				    <div class="alert" *ngIf="!rForm.controls['salary'].valid && rForm.controls['salary'].dirty">Enter a number</div>
+
 				</div>
 		      <input type="button" class = "btn btn-primary" value = "Add" *ngIf="showModifyButton==false" [disabled]="!rForm.valid" (click)="addEmployee()">
 		      <input type="button" class = "btn btn-success" value = "Modify" *ngIf="showModifyButton" [disabled]="!rForm.valid" (click)="modifyEmployee()">
