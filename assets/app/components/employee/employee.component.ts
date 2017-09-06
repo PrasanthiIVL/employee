@@ -3,10 +3,10 @@ import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { Employee } from '../models/employee';
-import { EmployeeService } from '../services/employee.service';
-import { EmployeeAppState } from '../app.states';
-import * as EmployeeActions from '../actions/employee.actions';
+import { Employee } from '../../models/employee';
+import { EmployeeService } from '../../services/employee.service';
+import { EmployeeAppState } from '../../app.states';
+import * as EmployeeActions from '../../actions/employee.actions';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',

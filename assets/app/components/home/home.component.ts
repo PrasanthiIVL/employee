@@ -2,8 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { Employee } from '../models/employee';
-import { EmployeeAppState } from '../app.states';
+import { Employee } from '../../models/employee';
+import { EmployeeAppState } from '../../app.states';
 
 @Component({
   selector: 'app-home',

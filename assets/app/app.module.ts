@@ -8,8 +8,8 @@ import { EffectsModule } from '@ngrx/effects';
 
 //Components
 import { AppComponent } from './app.component';
-import { EmployeeComponent } from './employee/employee.component';
-import { HomeComponent } from './home/home.component';
+import { EmployeeComponent } from './components/employee/employee.component';
+import { HomeComponent } from './components/home/home.component';
 
 //Services
 import { EmployeeService } from './services/employee.service';
