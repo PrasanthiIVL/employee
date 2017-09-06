@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Employee } from '../../models/employee';
 import { EmployeeService } from '../../services/employee.service';
 import { EmployeeAppState } from '../../app.states';
-import * as EmployeeActions from '../../actions/employee.actions';
+import * as EmployeeListActions from '../../actions/employee.list.actions';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -76,7 +76,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   addEmployee(): void {
-    this.employeeStore.dispatch(new EmployeeActions.AddEmployee(this.employee));
+    this.employeeStore.dispatch(new EmployeeListActions.AddEmployee(this.employee));
     this.resetEmployee();
     this.resetForm();
     this.hideModal();
@@ -114,7 +114,7 @@ export class EmployeeComponent implements OnInit {
 
 
   deleteEmployee(id: string,i:number): void{
-    this.employeeStore.dispatch(new EmployeeActions.DeleteEmployee({id:id,index:i}));
+    this.employeeStore.dispatch(new EmployeeListActions.DeleteEmployee({id:id,index:i}));
   }
 }
 
