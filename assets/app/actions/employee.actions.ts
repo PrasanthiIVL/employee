@@ -14,20 +14,6 @@ export class GetEmployees implements Action {
 	constructor(){}
 }
 
-/*export class GetEmployeesSuccess implements Action {
-	readonly type = GET_EMPLOYEES_SUCCESS;
-	constructor(
-		public payload: Employee[]
-		){}
-}
-
-export class GetEmployeesFail implements Action{
-	readonly type = GET_EMPLOYEES_FAIL;
-	constructor(
-		public payload: any
-		){}
-}*/
-
 export class AddEmployee implements Action {
 	readonly type = ADD_EMPLOYEE;
 	constructor(
@@ -35,24 +21,6 @@ export class AddEmployee implements Action {
 		){}
 }
 
-/*export class AddEmployeeSuccess implements Action {
-	readonly type = ADD_EMPLOYEE_SUCCESS;
-	constructor(
-		public payload: Employee
-		){}
-}
-
-export class AddEmployeeFail implements Action {
-	readonly type = ADD_EMPLOYEE_FAIL;
-	constructor(
-		public payload: any
-		){}
-}*/
-
 export type All
 = GetEmployees
 | AddEmployee;
-// | GetEmployeesSuccess
-// | GetEmployeesFail
-// | AddEmployeeSuccess
-// | AddEmployeeFail;

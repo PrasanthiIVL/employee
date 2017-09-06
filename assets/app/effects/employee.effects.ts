@@ -10,7 +10,6 @@ import 'rxjs/add/operator/catch';
 import * as EmployeeActions from '../actions/employee.actions';
 import { Employee } from '../models/employee';
 import { EmployeeService } from '../services/employee.service';
-// export type Action = EmployeeActions.All;
 
 @Injectable()
 export class EmployeeEffects{
