@@ -49,7 +49,7 @@ export class EmployeeComponent implements OnInit {
     this.rForm = this.fb.group({
       'firstName': [this.emp.firstName, Validators.required],
       'lastName': [this.emp.lastName, Validators.required],
-      'salary' : [this.emp.salary, Validators.compose([Validators.required, Validators.pattern("[0-9]")])],
+      'salary' : [this.emp.salary, Validators.compose([Validators.required, Validators.pattern(/^[0-9]*$/)])],
     });
   }
 
