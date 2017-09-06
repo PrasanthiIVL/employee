@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-//import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
@@ -29,11 +28,7 @@ import { AppRoutes } from './app.routes';
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(AppRoutes),
-      StoreModule.provideStore(employeeReducer),
-
-    /*StoreDevtoolsModule.instrument({
-      maxAge: 10
-    }),*/
+    StoreModule.provideStore(employeeReducer),
     EffectsModule.run(EmployeeEffects)
   ],
   providers: [
