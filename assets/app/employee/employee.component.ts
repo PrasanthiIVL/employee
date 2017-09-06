@@ -3,11 +3,12 @@ import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { AppState } from '../app.states';
+// import { AppState } from '../app.states';
 import { Employee } from '../models/employee';
 import { EmployeeService } from '../services/employee.service';
-import { EmployeeAction } from '../actions/employee.action';
-
+// import { EmpCountAction } from '../actions/emp.count.action';
+import { EmployeeAppState } from '../app.states';
+import * as EmployeeActions from '../actions/employee.actions';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -15,8 +16,10 @@ import { EmployeeAction } from '../actions/employee.action';
 })
 export class EmployeeComponent implements OnInit {
   
-  employees : Employee[];
+  //employees : Employee[];
   employee: Employee;
+
+  employees: Observable<Employee[]>;
 
   index: number = -1;
   emp:Employee;
@@ -30,20 +33,23 @@ export class EmployeeComponent implements OnInit {
   constructor(
   	  private employeeService: EmployeeService,
       private fb: FormBuilder,
-      private store: Store<AppState>,
+      // private store: Store<AppState>,
+      private employeeStore: Store<EmployeeAppState>
   	) {  }
 
   ngOnInit() {
-    this.employeeService.getEmployees()
+    /*this.employeeService.getEmployees()
       .subscribe(
         (employees: Employee[]) => {
           this.employees = employees;
-          this.store.dispatch(new EmployeeAction('MODIFYCOUNT',{count:this.employees.length}));
+          //this.store.dispatch(new EmpCountAction('MODIFYCOUNT',{count:this.employees.length}));
           },
           error => console.error(error)
-      );   
+      ); */  
     this.resetEmployee();
     this.resetForm();
+    this.employees = this.employeeStore.select('employees');
+    //this.employeeStore.dispatch(new EmployeeActions.GetEmployees());
   }
 
   resetForm(){
@@ -84,15 +90,17 @@ export class EmployeeComponent implements OnInit {
 
   addEmployee(): void {
     this.employee._id = null;
-	  this.employeeService.addEmployee(this.employee)
+	  /*this.employeeService.addEmployee(this.employee)
         .subscribe(
            (employee: Employee) => {
+             console.log(employee);
              console.log("Employee is added: "+ employee.firstName+" "+employee.lastName);
-             this.employees.push(employee);
-             this.store.dispatch(new EmployeeAction('MODIFYCOUNT',{count:this.employees.length}));
+             //this.employees.push(employee);
+             // this.store.dispatch(new EmpCountAction('MODIFYCOUNT',{count:this.employees.length}));
              },
            error => console.error(error)
-          );
+          );*/
+    this.employeeStore.dispatch(new EmployeeActions.AddEmployee(this.employee));
     this.resetEmployee();
     this.resetForm();
     this.hideModal();
@@ -134,10 +142,15 @@ export class EmployeeComponent implements OnInit {
           .subscribe(
             data => {
              console.log("Employee deleted");
-             this.employees.splice(i,1);
-             this.store.dispatch(new EmployeeAction('MODIFYCOUNT',{count:this.employees.length}));
+             // this.employees.splice(i,1);
+             // this.store.dispatch(new EmpCountAction('MODIFYCOUNT',{count:this.employees.length}));
             },
             error => console.error(error)
           );
   }
+
+ /* showEmployee$(){
+    console.log(this.employee$);
+  }*/
 }
+
