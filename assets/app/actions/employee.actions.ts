@@ -9,6 +9,10 @@ export const ADD_EMPLOYEE = "Employee Add";
 export const ADD_EMPLOYEE_SUCCESS = "Employee Add Success";
 export const ADD_EMPLOYEE_FAIL = "Employee Add Fail";
 
+export const DELETE_EMPLOYEE = "Employee Delete";
+export const DELETE_EMPLOYEE_SUCCESS = "Employee Delete Success";
+export const DELETE_EMPLOYEE_FAIL = "Employee Delete Fail";
+
 export class GetEmployees implements Action {
 	readonly type = GET_EMPLOYEES;
 	constructor(){}
@@ -18,6 +22,16 @@ export class AddEmployee implements Action {
 	readonly type = ADD_EMPLOYEE;
 	constructor(
 		public payload: Employee
+		){}
+}
+
+export class DeleteEmployee implements Action{
+	readonly type = DELETE_EMPLOYEE;
+	constructor(
+		public payload: {
+				id: string,
+				index: number
+			}
 		){}
 }
 

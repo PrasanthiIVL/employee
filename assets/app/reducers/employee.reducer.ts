@@ -32,6 +32,19 @@ export default function(state = initialState, action: Action): EmployeeListState
 			console.log(action.payload);
 			return state;
 
+		case EmployeeActions.DELETE_EMPLOYEE:
+			return state;
+
+		case EmployeeActions.DELETE_EMPLOYEE_SUCCESS:
+			console.log(action.payload.result);
+			let newState:EmployeeListState = state;
+			newState.splice(action.payload.index,1)
+			return newState;
+
+		case EmployeeActions.DELETE_EMPLOYEE_FAIL:
+			console.log(action.payload);
+			return state;
+
 		default: return state;
 	}	
 }

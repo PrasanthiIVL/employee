@@ -19,6 +19,8 @@ export class EmployeeEffects{
 		private employeeService: EmployeeService 
 		){}
 
+	index: number;
+
 	@Effect() get$ = this.actions
 		.ofType(EmployeeActions.GET_EMPLOYEES)
 		.switchMap(() => { return this.employeeService.getEmployees() })
@@ -38,5 +40,18 @@ export class EmployeeEffects{
 						})
 						.catch( err => {
 							return Observable.of({type: EmployeeActions.ADD_EMPLOYEE_FAIL, payload: err})
-						})
+						});
+
+	@Effect() delete$ = this.actions
+							.ofType(EmployeeActions.DELETE_EMPLOYEE)
+							.switchMap((action) => {
+								this.index = action.payload.index;
+								return this.employeeService.deleteEmployee(action.payload.id)
+							})
+							.switchMap(res => {
+								return Observable.of({type: EmployeeActions.DELETE_EMPLOYEE_SUCCESS, payload:{result:res, index:this.index}})
+							})
+							.catch(err => {
+								return Observable.of({type: EmployeeActions.DELETE_EMPLOYEE_FAIL, payload:err})
+							})
 }

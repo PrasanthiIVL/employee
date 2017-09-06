@@ -114,13 +114,7 @@ export class EmployeeComponent implements OnInit {
 
 
   deleteEmployee(id: string,i:number): void{
-    this.employeeService.deleteEmployee(id)
-          .subscribe(
-            data => {
-             console.log("Employee deleted");
-            },
-            error => console.error(error)
-          );
+    this.employeeStore.dispatch(new EmployeeActions.DeleteEmployee({id:id,index:i}));
   }
 }
 
