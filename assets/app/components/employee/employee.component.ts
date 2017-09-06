@@ -5,8 +5,10 @@ import { Observable } from 'rxjs/Observable';
 
 import { Employee } from '../../models/employee';
 import { EmployeeService } from '../../services/employee.service';
+import { EmployeeListAppState } from '../../app.states';
 import { EmployeeAppState } from '../../app.states';
 import * as EmployeeListActions from '../../actions/employee.list.actions';
+import * as EmployeeActions from '../../actions/employee.actions';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -14,8 +16,7 @@ import * as EmployeeListActions from '../../actions/employee.list.actions';
 })
 export class EmployeeComponent implements OnInit {
   
-  employee: Employee;
-
+  employee: Observable<Employee>;
   employees: Observable<Employee[]>;
 
   index: number = -1;
@@ -30,30 +31,36 @@ export class EmployeeComponent implements OnInit {
   constructor(
   	  private employeeService: EmployeeService,
       private fb: FormBuilder,
+      private employeeListStore: Store<EmployeeListAppState>,
       private employeeStore: Store<EmployeeAppState>
   	) {  }
 
   ngOnInit() {
-    this.resetEmployee();
+    this.employees = this.employeeListStore.select('employees');
+    this.employee = this.employeeStore.select('employee');    
+    this.employee.subscribe((employee:Employee) => {
+      this.emp = employee
+    })    
     this.resetForm();
-    this.employees = this.employeeStore.select('employees');
+    this.resetEmployee();
   }
 
   resetForm(){
     this.rForm = this.fb.group({
-      'firstName': [this.employee.firstName, Validators.required],
-      'lastName': [this.employee.lastName, Validators.required],
-      'salary' : [this.employee.salary, Validators.required],
+      'firstName': [this.emp.firstName, Validators.required],
+      'lastName': [this.emp.lastName, Validators.required],
+      'salary' : [this.emp.salary, Validators.required],
     });
   }
 
   resetEmployee(){
-    this.employee = {
-      _id:"",
+    this.employeeStore.dispatch(new EmployeeActions.ResetEmployee());
+    this.emp = {
+      _id: "",
       firstName: "",
-      lastName : "",
-      salary : 0
-    };
+      lastName: "",
+      salary: 0
+    }
   }
 
   showModal() {
@@ -76,7 +83,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   addEmployee(): void {
-    this.employeeStore.dispatch(new EmployeeListActions.AddEmployee(this.employee));
+    this.employeeListStore.dispatch(new EmployeeListActions.AddEmployee(this.emp));
     this.resetEmployee();
     this.resetForm();
     this.hideModal();
@@ -84,28 +91,17 @@ export class EmployeeComponent implements OnInit {
 
 
   getEmployee(id: string, i: number): void{
-    this.employeeService.getEmployee(id)
-        .subscribe(
-          (employee: Employee) => {
-            this.employee = employee;
-            },
-           error => console.error(error)
-        );
+    this.employeeStore.dispatch(new EmployeeActions.GetEmployee(id));
+    this.employee.subscribe((employee:Employee) => {
+      this.emp = employee
+    })
     this.showModal();
     this.showModifyButton = true;
     this.index = i;
   }
 
   modifyEmployee(): void {
-    this.emp = this.employee;
-    this.employeeService.modifyEmployee(this.employee)
-        .subscribe(
-          (employee: Employee) => {
-             console.log("Employee modified :"+ employee.firstName+" "+employee.lastName);
-             this.employees[this.index] = this.emp;
-           },
-           error => console.error(error)
-        );
+    this.employeeListStore.dispatch(new EmployeeListActions.ModifyEmployee({employee:this.emp,index:this.index}));
     this.showModifyButton = false;
     this.resetEmployee();
     this.resetForm();
@@ -114,7 +110,7 @@ export class EmployeeComponent implements OnInit {
 
 
   deleteEmployee(id: string,i:number): void{
-    this.employeeStore.dispatch(new EmployeeListActions.DeleteEmployee({id:id,index:i}));
+    this.employeeListStore.dispatch(new EmployeeListActions.DeleteEmployee({id:id,index:i}));
   }
 }
 

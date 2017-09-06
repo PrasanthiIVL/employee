@@ -1,4 +1,10 @@
+import { Employee } from './models/employee';
+
+export interface EmployeeListAppState{
+	employees: Employee[];
+}
+
 export interface EmployeeAppState{
-	employees: employees.EmployeeListState;
+	employee: Employee;
 }
 

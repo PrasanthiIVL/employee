@@ -13,6 +13,10 @@ export const DELETE_EMPLOYEE = "Employee Delete";
 export const DELETE_EMPLOYEE_SUCCESS = "Employee Delete Success";
 export const DELETE_EMPLOYEE_FAIL = "Employee Delete Fail";
 
+export const MODIFY_EMPLOYEE = "Employee Modify";
+export const MODIFY_EMPLOYEE_SUCCESS = "Employee Modify Success";
+export const MODIFY_EMPLOYEE_FAIL = "Employee Modify Fail";
+
 export class GetEmployees implements Action {
 	readonly type = GET_EMPLOYEES;
 	constructor(){}
@@ -33,4 +37,15 @@ export class DeleteEmployee implements Action{
 				index: number
 			}
 		){}
+}
+
+
+export class ModifyEmployee implements Action{
+	readonly type = MODIFY_EMPLOYEE;
+	constructor(
+		public payload:{
+				employee: Employee,
+				index: number
+			}
+		){ }
 }

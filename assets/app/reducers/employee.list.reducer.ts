@@ -52,8 +52,24 @@ export default function(state = initialState, action: Action): EmployeeListState
 			console.log(action.payload);
 			return state;
 
-		default: 
+		case EmployeeListActions.MODIFY_EMPLOYEE:
 			console.log(action.type);
+			return state;
+
+		case EmployeeListActions.MODIFY_EMPLOYEE_SUCCESS:
+			console.log(action.type);
+			console.log(action.payload.index);
+			console.log(action.payload.employee);
+			let modifiedState:EmployeeListState  = state;
+			modifiedState[action.payload.index] = action.payload.employee;
+			return modifiedState;
+
+		case EmployeeListActions.MODIFY_EMPLOYEE_FAIL:
+			console.log(action.type);
+			console.log(action.payload);
+			return state;
+
+		default: 
 			return state;
 	}	
 }

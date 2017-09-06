@@ -54,4 +54,17 @@ export class EmployeeListEffects{
 							.catch(err => {
 								return Observable.of({type: EmployeeListActions.DELETE_EMPLOYEE_FAIL, payload:err})
 							})
+
+	@Effect() modify$ = this.actions
+								.ofType(EmployeeListActions.MODIFY_EMPLOYEE)
+								.switchMap( (action) =>{
+									this.index = action.payload.index;
+									return this.employeeService.modifyEmployee(action.payload.employee)
+								})
+								.switchMap((employee:Employee) => {
+									return Observable.of({type: EmployeeListActions.MODIFY_EMPLOYEE_SUCCESS, payload: {employee: employee, index: this.index}})
+								})
+								.catch(err => {
+									return Observable.of({type: EmployeeListActions.MODIFY_EMPLOYEE_FAIL, payload: err})
+								})
 }

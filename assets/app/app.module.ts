@@ -16,6 +16,7 @@ import { EmployeeService } from './services/employee.service';
 
 //Effects
 import { EmployeeListEffects } from './effects/employee.list.effects';
+import { EmployeeEffects } from './effects/employee.effects';
 
 //Others
 import reducers from './app.reducers';
@@ -34,7 +35,8 @@ import { AppRoutes } from './app.routes';
     HttpModule,
     RouterModule.forRoot(AppRoutes),
     StoreModule.provideStore(reducers),
-    EffectsModule.run(EmployeeListEffects)
+    EffectsModule.run(EmployeeListEffects),
+    EffectsModule.run(EmployeeEffects)
   ],
   providers: [
     EmployeeService
