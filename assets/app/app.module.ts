@@ -15,7 +15,7 @@ import { EmployeeService } from './services/employee.service';
 // import empCountReducer from './reducers/emp.count.reducer';
 import { EmployeeEffects } from './effects/employee.effects';
 import employeeReducer  from './app.states';
-
+import { AppRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -28,16 +28,7 @@ import employeeReducer  from './app.states';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot([
-        {
-          path: '',
-          component: HomeComponent
-        },
-        {
-          path: 'employee',
-          component: EmployeeComponent
-        }
-      ]),
+    RouterModule.forRoot(AppRoutes),
       StoreModule.provideStore(employeeReducer),
 
     /*StoreDevtoolsModule.instrument({
