@@ -73,17 +73,17 @@
 			<form [formGroup]="rForm" >
 				<div class="form-group">
 					<label for="firstName">First Name</label>
-				    <input type="text" class="form-control" name="firstName" formControlName="firstName" [(ngModel)]="employee.firstName">
+				    <input type="text" class="form-control" name="firstName" formControlName="firstName" [(ngModel)]="emp.firstName">
 				    <div class="alert" *ngIf="!rForm.controls['firstName'].valid && rForm.controls['firstName'].touched">{{ titleAlert }}</div>
 				</div>
 				<div class="form-group">
 				    <label for="lastName">Last Name</label>
-				    <input type="text" class="form-control" name="lastName" formControlName="lastName" [(ngModel)]="employee.lastName">
+				    <input type="text" class="form-control" name="lastName" formControlName="lastName" [(ngModel)]="emp.lastName">
 				    <div class="alert" *ngIf="!rForm.controls['lastName'].valid && rForm.controls['lastName'].touched">{{ titleAlert }}</div>
 				</div>
 				<div class="form-group">
 				    <label for="salary">Salary</label>
-				    <input type="text" class="form-control" name="salary" formControlName="salary" [(ngModel)]="employee.salary">
+				    <input type="text" class="form-control" name="salary" formControlName="salary" [(ngModel)]="emp.salary">
 				    <div class="alert" *ngIf="!rForm.controls['salary'].valid && rForm.controls['salary'].touched">{{ titleAlert }}</div>
 				</div>
 		      <input type="button" class = "btn btn-primary" value = "Add" *ngIf="showModifyButton==false" [disabled]="!rForm.valid" (click)="addEmployee()">

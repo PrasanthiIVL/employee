@@ -5,6 +5,8 @@ export const GET_EMPLOYEE_SUCCESS = "Employee Get Success";
 export const GET_EMPLOYEE_FAIL = "Employee Get Fail";
 export const RESET_EMPLOYEE = "Employee Reset";
 
+
+
 export class GetEmployee implements Action{
 	readonly type  = GET_EMPLOYEE;
 	constructor(

@@ -3,7 +3,12 @@ import { Action } from '@ngrx/store';
 import { Employee } from '../models/employee';
 import * as EmployeeActions from '../actions/employee.actions';
 
-const initialState:Employee = null;
+const initialState:Employee = {
+	_id:"",
+	firstName: "",
+	lastName: "",
+	salary: 0
+};
 
 export default function(state = initialState, action: Action): Employee {
 
