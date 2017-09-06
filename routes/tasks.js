@@ -58,7 +58,10 @@ router.get('/employee/:id', function(req,res,next){
 
 //POST Employee
 router.post('/employee/', function(req,res,next){
-	var employee = new Employee(req.body);
+	var employee = new Employee({
+							firstName:req.body.firstName,
+							lastName:req.body.lastName,
+							salary:req.body.salary});
 	try{
 		employee.save(function(err,employee){
 			if(err){
