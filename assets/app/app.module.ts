@@ -6,14 +6,19 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+//Components
 import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { HomeComponent } from './home/home.component';
 
+//Services
 import { EmployeeService } from './services/employee.service';
-// import empCountReducer from './reducers/emp.count.reducer';
+
+//Effects
 import { EmployeeEffects } from './effects/employee.effects';
-import employeeReducer  from './app.states';
+
+//Others
+import reducers from './app.reducers';
 import { AppRoutes } from './app.routes';
 
 @NgModule({
@@ -28,7 +33,7 @@ import { AppRoutes } from './app.routes';
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(AppRoutes),
-    StoreModule.provideStore(employeeReducer),
+    StoreModule.provideStore(reducers),
     EffectsModule.run(EmployeeEffects)
   ],
   providers: [
