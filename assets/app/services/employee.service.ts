@@ -21,7 +21,6 @@ export class EmployeeService {
   }
 
   public addEmployee(employee: Employee){
-    console.log(employee);
     const body = JSON.stringify(employee);
     const headers = new Headers({'Content-Type' : 'application/json'});
     return this.http.post('http://localhost:3000/api/employee',body, {headers: headers})

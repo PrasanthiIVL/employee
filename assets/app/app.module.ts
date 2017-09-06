@@ -4,18 +4,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-//import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 
+//Components
 import { AppComponent } from './app.component';
-import { EmployeeComponent } from './employee/employee.component';
-import { HomeComponent } from './home/home.component';
+import { EmployeeComponent } from './components/employee/employee.component';
+import { HomeComponent } from './components/home/home.component';
 
+//Services
 import { EmployeeService } from './services/employee.service';
-// import empCountReducer from './reducers/emp.count.reducer';
-import { EmployeeEffects } from './effects/employee.effects';
-import employeeReducer  from './app.states';
 
+//Effects
+import { EmployeeListEffects } from './effects/employee.list.effects';
+
+//Others
+import reducers from './app.reducers';
+import { AppRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -28,22 +32,9 @@ import employeeReducer  from './app.states';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot([
-        {
-          path: '',
-          component: HomeComponent
-        },
-        {
-          path: 'employee',
-          component: EmployeeComponent
-        }
-      ]),
-      StoreModule.provideStore(employeeReducer),
-
-    /*StoreDevtoolsModule.instrument({
-      maxAge: 10
-    }),*/
-    EffectsModule.run(EmployeeEffects)
+    RouterModule.forRoot(AppRoutes),
+    StoreModule.provideStore(reducers),
+    EffectsModule.run(EmployeeListEffects)
   ],
   providers: [
     EmployeeService
