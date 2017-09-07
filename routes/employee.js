@@ -4,7 +4,7 @@ var router = express.Router();
 var Employee = require('../models/employee')
 
 //GET all Employees
-router.get('/employees', function(req,res,next){
+router.get('/', function(req,res,next){
     try{
     	Employee
     			.find({})
@@ -31,7 +31,7 @@ router.get('/employees', function(req,res,next){
 });
 
 //GET Employee by id
-router.get('/employee/:id', function(req,res,next){
+router.get('/:id', function(req,res,next){
 	try{
 		Employee
 				.findById(req.params.id)
@@ -57,7 +57,7 @@ router.get('/employee/:id', function(req,res,next){
 });
 
 //POST Employee
-router.post('/employee/', function(req,res,next){
+router.post('/', function(req,res,next){
 	var employee = new Employee({
 							firstName:req.body.firstName,
 							lastName:req.body.lastName,
@@ -85,7 +85,7 @@ router.post('/employee/', function(req,res,next){
 });
 
 //DELETE Employee by id
-router.delete('/employee/:id', function(req,res,next){
+router.delete('/:id', function(req,res,next){
 	try{
 		Employee
 				.findByIdAndRemove(req.params.id)
@@ -111,7 +111,7 @@ router.delete('/employee/:id', function(req,res,next){
 });
 
 //UPDATE employee
-router.put('/employee/:id', function(req,res,next){
+router.put('/:id', function(req,res,next){
 	var newEmployee = new Employee(req.body);
 	var id = req.params.id;
 	try{

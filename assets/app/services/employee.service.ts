@@ -13,7 +13,7 @@ export class EmployeeService {
     ) {  }
 
   public getEmployees(){
-    return this.http.get('http://localhost:3000/api/employees')
+    return this.http.get('http://localhost:3000/api/employee')
                   .map((response:Response) => {
                     return response.json().obj
                     })
