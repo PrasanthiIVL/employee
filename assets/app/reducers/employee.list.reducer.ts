@@ -58,8 +58,6 @@ export default function(state = initialState, action: Action): EmployeeListState
 
 		case EmployeeListActions.MODIFY_EMPLOYEE_SUCCESS:
 			console.log(action.type);
-			console.log(action.payload.index);
-			console.log(action.payload.employee);
 			let modifiedState:EmployeeListState  = state;
 			modifiedState[action.payload.index] = action.payload.employee;
 			return modifiedState;
