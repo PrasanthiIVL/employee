@@ -1,12 +1,8 @@
 <div class = "container">
 
 	<div class = "row"> 
-		<input type="button" class = "btn btn-primary" value = " + Add Employee" (click)="getAddEmployeeForm()">
+		<input type="button" class = "btn btn-primary" value = " + Add Employee" (click)="getAddEmployeeForm()" *ngIf="isSignedIn()">
 	</div> 
-
-
-
-  	
 
 	<div class = "col-sm-12">
 		<div class = "row">
@@ -43,11 +39,11 @@
 					</td>
 					<td class = "col-sm-4">
 						<button (click)="deleteEmployee(employee._id,i)"
-			                class="btn btn-danger">
+			                class="btn btn-danger" *ngIf="isSignedIn()">
 					          Delete
 					    </button>
 					    <button (click)="getEmployee(employee._id,i)"
-					                class="btn btn-warning">
+					                class="btn btn-warning" *ngIf="isSignedIn()">
 					          Modify
 					    </button>
 					</td>

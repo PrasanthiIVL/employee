@@ -10,9 +10,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppComponent } from './app.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { HomeComponent } from './components/home/home.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 //Services
 import { EmployeeService } from './services/employee.service';
+import { AuthService } from './services/auth.service';
 
 //Effects
 import { EmployeeListEffects } from './effects/employee.list.effects';
@@ -26,7 +28,8 @@ import { AppRoutes } from './app.routes';
   declarations: [
     AppComponent,
     EmployeeComponent,
-    HomeComponent
+    HomeComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { AppRoutes } from './app.routes';
     EffectsModule.run(EmployeeEffects)
   ],
   providers: [
-    EmployeeService
+    EmployeeService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

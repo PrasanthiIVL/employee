@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var jwt = require('jsonwebtoken');
 
 var Employee = require('../models/employee')
 
@@ -30,6 +31,7 @@ router.get('/', function(req,res,next){
     }
 });
 
+
 //GET Employee by id
 router.get('/:id', function(req,res,next){
 	try{
@@ -55,6 +57,18 @@ router.get('/:id', function(req,res,next){
 		});
     }
 });
+
+
+router.use('/', function(req,res,next){
+	jwt.verify(req.query.token, 'secret', function(err,decoded){
+		if(err){
+			return res.status(401).json({
+				title: "Not Authrnticated"
+			});
+		}
+		next(); 
+	})
+})
 
 //POST Employee
 router.post('/', function(req,res,next){
