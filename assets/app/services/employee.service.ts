@@ -22,8 +22,11 @@ export class EmployeeService {
 
   public addEmployee(employee: Employee){
     const body = JSON.stringify(employee);
+    const token = localStorage.getItem('token')
+                        ? '?token='+localStorage.getItem('token') 
+                        : '';
     const headers = new Headers({'Content-Type' : 'application/json'});
-    return this.http.post('http://localhost:3000/api/employee',body, {headers: headers})
+    return this.http.post('http://localhost:3000/api/employee'+token,body, {headers: headers})
                   .map((response:Response) => {
                     return response.json().obj
                     })
@@ -33,7 +36,11 @@ export class EmployeeService {
   public modifyEmployee(employee: Employee){
     const body = JSON.stringify(employee);
     const headers = new Headers({'Content-Type' : 'application/json'});
-    return this.http.put('http://localhost:3000/api/employee/'+employee._id,body, {headers: headers})
+    const token = localStorage.getItem('token')
+                        ? '?token='+localStorage.getItem('token') 
+                        : '';
+
+    return this.http.put('http://localhost:3000/api/employee/'+employee._id+token,body, {headers: headers})
                   .map((response:Response) => {
                     return response.json().obj
                     })
@@ -41,6 +48,11 @@ export class EmployeeService {
   }
 
   public getEmployee(id: string){
+
+    /*const token = localStorage.getItem('token')
+                        ? '?token='+localStorage.getItem('token') 
+                        : '';*/
+
     return this.http.get('http://localhost:3000/api/employee/'+id)
                   .map((response:Response) => {
                     return response.json().obj
@@ -49,7 +61,13 @@ export class EmployeeService {
   }
 
   public deleteEmployee(id: string){
-    return this.http.delete('http://localhost:3000/api/employee/'+id)
+
+
+    const token = localStorage.getItem('token')
+                        ? '?token='+localStorage.getItem('token') 
+                        : '';
+
+    return this.http.delete('http://localhost:3000/api/employee/'+id+token)
                   .map((response:Response) => {
                     return response.json().obj
                     })

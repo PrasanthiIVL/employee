@@ -82,6 +82,10 @@ export class EmployeeComponent implements OnInit {
     this.showModifyButton = false;
   }
 
+  isSignedIn(){
+    return (localStorage.getItem('token') !== null);
+  }
+
   addEmployee(): void {
     this.employeeListStore.dispatch(new EmployeeListActions.AddEmployee(this.emp));
     this.resetEmployee();

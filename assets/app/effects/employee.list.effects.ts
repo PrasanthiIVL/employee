@@ -34,25 +34,31 @@ export class EmployeeListEffects{
 
 	@Effect() add$ = this.actions
 						.ofType(EmployeeListActions.ADD_EMPLOYEE)
-						.switchMap((action) => {return this.employeeService.addEmployee(action.payload)}) 
-						.switchMap( (employee:Employee) => {
-							return Observable.of({type: EmployeeListActions.ADD_EMPLOYEE_SUCCESS, payload: employee})
-						})
-						.catch( err => {
-							return Observable.of({type: EmployeeListActions.ADD_EMPLOYEE_FAIL, payload: err})
-						});
+						.switchMap((action) => {
+							// console.log("calling add route: "+ action.payload.firstName);
+							return this.employeeService.addEmployee(action.payload)
+								.switchMap( (employee:Employee) => {
+									// console.log("got Result " + employee);
+									return Observable.of({type: EmployeeListActions.ADD_EMPLOYEE_SUCCESS, payload: employee})
+								})
+								.catch( err => {
+									// console.log("got error: "+ err);
+									return Observable.of({type: EmployeeListActions.ADD_EMPLOYEE_FAIL, payload: err})
+								});
+						}) 
+						
 
 	@Effect() delete$ = this.actions
 							.ofType(EmployeeListActions.DELETE_EMPLOYEE)
 							.switchMap((action) => {
 								this.index = action.payload.index;
-								return this.employeeService.deleteEmployee(action.payload.id)
-							})
-							.switchMap(res => {
-								return Observable.of({type: EmployeeListActions.DELETE_EMPLOYEE_SUCCESS, payload:{result:res, index:this.index}})
-							})
-							.catch(err => {
-								return Observable.of({type: EmployeeListActions.DELETE_EMPLOYEE_FAIL, payload:err})
+								return this.employeeService.deleteEmployee(action.payload.id)								
+								.switchMap(res => {
+									return Observable.of({type: EmployeeListActions.DELETE_EMPLOYEE_SUCCESS, payload:{result:res, index:this.index}})
+								})
+								.catch(err => {
+									return Observable.of({type: EmployeeListActions.DELETE_EMPLOYEE_FAIL, payload:err})
+								})
 							})
 
 	@Effect() modify$ = this.actions
@@ -60,11 +66,11 @@ export class EmployeeListEffects{
 								.switchMap( (action) =>{
 									this.index = action.payload.index;
 									return this.employeeService.modifyEmployee(action.payload.employee)
-								})
-								.switchMap((employee:Employee) => {
-									return Observable.of({type: EmployeeListActions.MODIFY_EMPLOYEE_SUCCESS, payload: {employee: employee, index: this.index}})
-								})
-								.catch(err => {
-									return Observable.of({type: EmployeeListActions.MODIFY_EMPLOYEE_FAIL, payload: err})
+									.switchMap((employee:Employee) => {
+										return Observable.of({type: EmployeeListActions.MODIFY_EMPLOYEE_SUCCESS, payload: {employee: employee, index: this.index}})
+									})
+									.catch(err => {
+										return Observable.of({type: EmployeeListActions.MODIFY_EMPLOYEE_FAIL, payload: err})
+									})
 								})
 }

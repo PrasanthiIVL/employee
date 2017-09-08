@@ -1,0 +1,58 @@
+<div class = "row">
+	  <ul class="nav nav-tabs">
+	    <li class="active"><a data-toggle="tab" href="#signin">Login</a></li>
+	    <li><a data-toggle="tab" href="#signup">Register</a></li>
+	  </ul>
+
+	  <div class="tab-content">
+	    <div id="signin" class="tab-pane fade in active">
+		    <div class="col-sm-6">
+				<h2> Sign-In </h2>
+				<hr>
+				<form [formGroup] = "signInForm">
+					<div class="form-group">
+						<label for="email">Email</label>
+					    <input type="email" class="form-control" name="email" name="email" formControlName="email" [(ngModel)] = "userSignIn.email">
+					    <div class="alert" *ngIf="!signInForm.controls['email'].valid && signInForm.controls['email'].touched"> Please enter a valid email </div>
+					</div>
+					<div class="form-group">
+					    <label for="password">Password</label>
+					    <input type="password" class="form-control" name="password" formControlName="password" [(ngModel)] = "userSignIn.password">
+					    <div class="alert" *ngIf="!signInForm.controls['password'].valid && signInForm.controls['password'].touched"> This is required </div>
+					</div><br>
+			      <input type="button" class = "btn btn-primary" value = "Login" (click) = "signin()"  [disabled]="!signInForm.valid">
+			      <input type="button" class = "btn btn-warning" value = "Reset">
+			    </form>
+			</div>
+	    </div>
+	    <div id="signup" class="tab-pane fade">
+			<div class = "col-sm-6">
+				<h2> Sign-up </h2>
+				<hr>
+				<form [formGroup] = "signUpForm">
+					<div class="form-group">
+						<label for="email">Email</label>
+					    <input type="email" class="form-control" name="email" formControlName="email" [(ngModel)] = "userSignUp.email">
+					    <div class="alert" *ngIf="!signUpForm.controls['email'].valid && signUpForm.controls['email'].touched"> Please enter valid email </div>	
+					</div>
+					<div class="form-group">
+					    <label for="password">Password</label>
+					    <input type="password" class="form-control" name="password" formControlName="password" [(ngModel)] = "userSignUp.password">
+					    <div class="alert" *ngIf="!signUpForm.controls['password'].valid && signUpForm.controls['password'].touched"> This is required </div>
+					</div>
+					<div class="form-group">
+					    <label for="password2">Retype password</label>
+					    <input type="password" class="form-control" name="password2" formControlName="password2" [(ngModel)] = "password2">
+					</div>
+					<div class="alert" *ngIf="userSignUp.password != password2 && signUpForm.controls['password2'].dirty"> Password didn't match </div><br>
+			      <input type="button" class = "btn btn-primary" (click) = "addUser()" value = "Register" [disabled]="!signUpForm.valid || userSignUp.password != password2 ">
+			      <input type="button" class = "btn btn-warning" value = "Cancel">
+			    </form>
+			    <br>
+			    <div [ngClass] = "myClass" >  {{signUpMessage}} </div>
+			</div>
+	    </div>
+	  </div>
+	
+	
+</div>
